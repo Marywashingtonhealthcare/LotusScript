@@ -16,18 +16,19 @@ Sub Initialize
         'pick view from database
     Set view = db.GetView("YourViewGoesHere")
      
-     DataDirectory = Sess.GetEnvironmentString("\\nycweb04\TextBases\Reports\",True)
+    DataDirectory = Sess.GetEnvironmentString("Directory",True)'This is the local Notes\Data directory of the current machine
      
-     Set doc = view.GetFirstDocument   
+     Set doc = view.GetFirstDocument
      
      Do Until doc Is Nothing
-          Set rtitem= doc.GetFirstItem("PDFtext")
+        Set rtitem= doc.GetFirstItem("PDFtext")'this will result in a NotesRichTextItem, FYI
           If Not(rtitem Is Nothing) Then ' should check type as well...
                 shortname = doc.IdNum(0)'This is the name of the field we want the file called
                  If doc.HasEmbedded Then
                        Set object= rtitem.EmbeddedObjects(0)
                                     'Replace independent with a subdirectory of the DATA directory
-                       Call object.ExtractFile(DataDirectory & "\PDFs\" & shortname & ".pdf")
+                        'Call object.ExtractFile(DataDirectory & "\YourDirectory\" & shortname & ".pdf")
+                Call object.ExtractFile("C:\YourDirectoryHere\" & shortname & ".pdf") 'I wonder if we can extract an actual filename here...research it.
                 
                     Call doc.Save( True, False )
                  End If
@@ -38,3 +39,5 @@ End Sub
 
 
 
+result = Evaluate({@AttachmentNames}, doc )
+fileName = result(0)
