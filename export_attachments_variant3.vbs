@@ -23,10 +23,10 @@ Sub Initialize
     Do Until doc Is Nothing
 
         If doc.HasEmbedded Then
-            If Not(doc.YourNameField Is Nothing) Then
+            If Not(doc.YourNameField(0) = "") Then
                 shortname = doc.YourNameFieldHere(0)
             Else
-                shortname = doc.TitleField(0) & "-NoFormNum"
+                shortname = "NoFormNum-" & doc.TitleField(0)
             End If
 
             attachments = Evaluate("@AttachmentNames", doc)
