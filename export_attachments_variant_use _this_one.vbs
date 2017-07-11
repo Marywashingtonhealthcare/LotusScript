@@ -3,6 +3,7 @@
 
 
 Sub Initialize
+    On Error Resume Next
     Dim Sess As New NotesSession
     Dim db As NotesDatabase
     Dim doc As NotesDocument
